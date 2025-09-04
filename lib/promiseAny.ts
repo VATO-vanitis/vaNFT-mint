@@ -1,18 +1,31 @@
-export function promiseAny<T>(promises: Promise<T>[]): Promise<T> {
-  const anyFn = (Promise as any).any;
-  if (typeof anyFn === 'function') return anyFn(promises);
+export function promiseAny<T>(iterable: Iterable<Promise<T>>): Promise<T> {
+  const errors: any[] = [];
+  let pending = 0;
+  let resolved = false;
+
   return new Promise<T>((resolve, reject) => {
-    let rejections = 0;
-    const errors: unknown[] = [];
-    for (const p of promises) {
-      Promise.resolve(p).then(resolve).catch((err) => {
-        errors.push(err);
-        rejections++;
-        if (rejections === promises.length) {
-          try { /* @ts-ignore */ reject(new AggregateError(errors, 'All promises were rejected')); }
-          catch { reject(new Error('All promises were rejected')); }
+    for (const p of iterable) {
+      pending++;
+      Promise.resolve(p).then(
+        (v) => {
+          if (!resolved) {
+            resolved = true;
+            resolve(v);
+          }
+        },
+        (e) => {
+          errors.push(e);
+          if (--pending === 0 && !resolved) {
+            // AggregateError if available, else plain Error
+            const Agg: any = (globalThis as any).AggregateError || Error;
+            reject(new Agg(errors, "All promises were rejected"));
+          }
         }
-      });
+      );
+    }
+    if (pending === 0) {
+      const Agg: any = (globalThis as any).AggregateError || Error;
+      reject(new Agg(errors, "All promises were rejected"));
     }
   });
 }

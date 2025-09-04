@@ -228,7 +228,7 @@ function candidateMetaPaths(baseURI: string, designId: number, slug?: string | n
   return Array.from(new Set(out));
 }
 
-// (2) Robust fetch: multi-gateway + Promise.any with graceful fallbacks
+// (2) Robust fetch: multi-gateway + promiseAny with graceful fallbacks
 async function fetchJsonFromCandidates(paths: string[], gateways = CONFIG.gateways) {
   const urls: string[] = [];
   for (const p of paths) {
@@ -264,7 +264,7 @@ async function fetchJsonFromCandidates(paths: string[], gateways = CONFIG.gatewa
   })());
 
   try {
-    const json = await Promise.any(attempts);
+    const json = await promiseAny(attempts);
     return { json, tried };
   } catch (e) {
     return { json: null as any, tried, error: (e as any)?.message || String(e) };

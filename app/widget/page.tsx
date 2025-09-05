@@ -692,7 +692,7 @@ export default function Page() {
     if (soldOut) return CONFIG.copy.soldOut;
     if (!live) return CONFIG.copy.notLive;
     if (qtyMissing) return "Enter how much Pieces you want to collect";
-    if (needsFunds) return "You need more BNB in wallet";
+    if (needsFunds) return "You need more BNB in your wallet";
     return loading ? "Processing…" : CONFIG.copy.button;
   }, [isConnected, onWrongChain, soldOut, live, qtyMissing, needsFunds, loading]);
 
@@ -777,7 +777,7 @@ export default function Page() {
       )}
 
       {designId == null ? (
-        <div className="text-sm opacity-70 text-center">
+        <div className="text-sm opacity-100 text-center">
           No design selected. Add <code>?design=t1-design-01</code> or <code>?designId=1</code> to the URL.
         </div>
       ) : (
@@ -794,7 +794,7 @@ export default function Page() {
               style={{ width: mediaPx, height: mediaPx }}
             >
               {metaLoading ? (
-                <div className="animate-pulse h-full w-full grid place-items-center text-xs opacity-60">
+                <div className="animate-pulse h-full w-full grid place-items-center text-xs opacity-100">
                   Loading media…
                 </div>
               ) : mediaUrl ? (
@@ -817,15 +817,15 @@ export default function Page() {
                   />
                 )
               ) : (
-                <div className="grid h-full w-full place-items-center text-xs opacity-60">
+                <div className="grid h-full w-full place-items-center text-xs opacity-100">
                   Media not available yet
                 </div>
               )}
             </div>
 
             {boostBps != null && (
-              <div className="text-center text-sm opacity-80 mt-3">
-                Boost when staking: <b>+{(boostBps / 100).toFixed(2)}% APY</b>
+              <div className="text-center text-sm opacity-100 mt-3">
+                <b>+{(boostBps / 100).toFixed(2)}% Staking Boost</b>
               </div>
             )}
           </div>
@@ -882,7 +882,7 @@ export default function Page() {
               <div className="text-center text-xl font-semibold">
                 {unitBnb != null ? `${unitBnb.toLocaleString(undefined, { maximumFractionDigits: 6 })} BNB` : "—"}
               </div>
-              <div className="text-center text-sm opacity-80">
+              <div className="text-center text-sm opacity-100">
                 {(CONFIG.wbnbBusdPair || Number.isFinite(CONFIG.manualBnbUsd))
                   ? (unitUsd != null ? `$${unitUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : "—")
                   : "USD unavailable on this network"}
@@ -905,7 +905,7 @@ export default function Page() {
               <div className="text-center text-xl font-semibold">
                 {totalBnb != null ? `${totalBnb.toLocaleString(undefined, { maximumFractionDigits: 6 })} BNB` : "—"}
               </div>
-              <div className="text-center text-sm opacity-80">
+              <div className="text-center text-sm opacity-100">
                 {(CONFIG.wbnbBusdPair || Number.isFinite(CONFIG.manualBnbUsd))
                   ? (totalUsd != null ? `$${totalUsd.toLocaleString(undefined, { maximumFractionDigits: 2 })}` : "—")
                   : "USD unavailable on this network"}
@@ -985,14 +985,14 @@ export default function Page() {
           )}
 
           {address && (
-            <div className="mt-3 text-center text-xs opacity-70">
-              Minting from: <code className="opacity-90">{CONFIG.nft.address}</code>
+            <div className="mt-3 text-center text-xs opacity-100">
+              Minting from: <code className="opacity-100">{CONFIG.nft.address}</code>
             </div>
           )}
         </>
       )}
 
-      <div className="mt-8 text-xs opacity-70 text-center">{CONFIG.copy.disclaimer}</div>
+      <div className="mt-8 text-xs opacity-100 text-center">{CONFIG.copy.disclaimer}</div>
     </div>
   );
 }

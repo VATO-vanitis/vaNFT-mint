@@ -95,7 +95,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <div className="mt-8 text-xs opacity-70">{CONFIG.copy.disclaimer}</div>
+      <div className="mt-8 text-xs opacity-100">{CONFIG.copy.disclaimer}</div>
     </div>
   );
 }

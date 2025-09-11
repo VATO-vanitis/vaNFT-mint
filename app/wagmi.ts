@@ -6,7 +6,7 @@ import { bsc } from "wagmi/chains";
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 
 export const config = getDefaultConfig({
-  appName: "VATO Staking",
+  appName: "VATO NFT",
   projectId: process.env.NEXT_PUBLIC_WC_ID!, // WalletConnect
   chains: [bsc], // 👈 ONLY BNB mainnet
   transports: {
